@@ -1,15 +1,16 @@
-import sbt.{Tests, _}
 import sbt.Keys._
+import sbt.{Tests, _}
 
 object Configuration {
   val settings = Seq(
     organization := "es.alejandrobudy",
     scalaVersion := "2.12.7",
 
+    mainClass in Compile := Some("es.alejandrobudy.api.ScalaHttpApi"),
     // Custom folders path (/src/main/scala and /src/test/scala by default)
     scalaSource in Compile := baseDirectory.value / "/src/main",
     scalaSource in Test := baseDirectory.value / "/src/test",
-
+    resourceDirectory in Compile := baseDirectory.value / "conf",
     // Compiler options
     scalacOptions ++= Seq(
       "-deprecation", // Warnings deprecation
