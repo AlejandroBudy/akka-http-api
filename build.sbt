@@ -15,7 +15,8 @@ libraryDependencies ++= Seq(
   "com.lihaoyi" %% "pprint" % "0.5.6",
   "com.typesafe.akka" %% "akka-http" % akkaHttp,
   "com.typesafe.akka" %% "akka-actor" % akka,
-  "com.typesafe.akka" %% "akka-stream" % akka
+  "com.typesafe.akka" %% "akka-stream" % akka,
+  "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttp
 )
 
 /** ********* TEST DEPENDENCIES **************** */
