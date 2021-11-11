@@ -1,6 +1,7 @@
-package es.alejandrobudy.api
+package es.alejandrobudy.api.module.user.infrastructure
 
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
+import es.alejandrobudy.api.module.user.domain.{User, UserId, UserName}
 import spray.json.{DefaultJsonProtocol, DeserializationException, JsString, JsValue, JsonFormat, RootJsonFormat}
 
 object UserMarshaller extends SprayJsonSupport with DefaultJsonProtocol {

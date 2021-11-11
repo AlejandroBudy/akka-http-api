@@ -1,4 +1,4 @@
-package es.alejandrobudy.api
+package es.alejandrobudy.api.entry_point
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http

@@ -1,4 +1,4 @@
-package es.alejandrobudy.api
+package es.alejandrobudy.api.module.user.domain
 
 import java.util.UUID
 

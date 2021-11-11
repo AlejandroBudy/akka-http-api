@@ -2,6 +2,8 @@ package es.alejandrobudy.api
 
 import akka.http.scaladsl.model.{ContentTypes, StatusCodes}
 import akka.http.scaladsl.testkit.ScalatestRouteTest
+import es.alejandrobudy.api.entry_point.Routes
+import es.alejandrobudy.api.module.user.domain.User
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.{Matchers, WordSpec}
 import spray.json._
@@ -25,42 +27,14 @@ class ScalaHttpApiTest extends WordSpec with Matchers with ScalaFutures with Sca
     )
   }
 
-  "ScalaHttpApi" should {
-    "Respond successfully while request its status" in {
-      Get("/status") ~> Routes.all ~> check {
-        status shouldBe StatusCodes.OK
-        contentType shouldBe ContentTypes.`application/json`
-        entityAs[String] shouldBe
-          """
-            | {
-            | "status": "ok"
-            | }
-            |""".stripMargin
-      }
-    }
-
-    "Respond successfully return pong" in {
-      Get("/ping") ~> Routes.all ~> check {
-        status shouldBe StatusCodes.OK
-        contentType shouldBe ContentTypes.`application/json`
-        entityAs[String] shouldBe
-          """
-            | {
-            | "data": "pong"
-            | }
-            |""".stripMargin
-      }
-    }
-
-    "Respond successfully with user list" in {
-      Get("/users") ~> Routes.all ~> check {
-        status shouldBe StatusCodes.OK
-        contentType shouldBe ContentTypes.`application/json`
-        val expectedUsers = Seq(
-          UserStub("73aec926-7840-4a44-87e0-2d540e37e636", "Alejandro"),
-          UserStub("73aec926-7840-4a44-87e0-2d540e37e636", "Budy"))
-        entityAs[String].parseJson shouldBe UserMarshaller.marshall(expectedUsers)
-      }
+  "Respond successfully with user list" in {
+    Get("/users") ~> Routes.all ~> check {
+      status shouldBe StatusCodes.OK
+      contentType shouldBe ContentTypes.`application/json`
+      val expectedUsers = Seq(
+        UserStub("73aec926-7840-4a44-87e0-2d540e37e636", "Alejandro"),
+        UserStub("73aec926-7840-4a44-87e0-2d540e37e636", "Budy"))
+      entityAs[String].parseJson shouldBe UserMarshaller.marshall(expectedUsers)
     }
   }
 }
