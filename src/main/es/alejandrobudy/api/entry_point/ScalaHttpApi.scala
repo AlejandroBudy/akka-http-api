@@ -4,6 +4,7 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
 import com.typesafe.config.ConfigFactory
+import es.alejandrobudy.api.module.user.infrastructure.dependency_injection.UserModuleDependencyContainer
 
 import scala.concurrent.ExecutionContextExecutor
 import scala.io.StdIn
@@ -21,7 +22,12 @@ object ScalaHttpApi {
     implicit val materializer: ActorMaterializer = ActorMaterializer()
     implicit val executionContext: ExecutionContextExecutor = system.dispatcher
 
-    val bindingFuture = Http().bindAndHandle(Routes.all, host, port)
+    val container = new EntrypointDependencyContainer(
+      new UserModuleDependencyContainer
+    )
+    val routes = new Routes(container)
+
+    val bindingFuture = Http().bindAndHandle(routes.all, host, port)
 
     //Run app until Enter is hit
     println(s"Server online at http://${host}:$port/\n Press RETURN to stop it")
